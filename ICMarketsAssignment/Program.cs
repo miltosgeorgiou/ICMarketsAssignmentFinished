@@ -9,6 +9,7 @@ using ICMarketsAssignment.Services.impl;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Http.Resilience;
 using Polly;
+using Serilog;
 using System.Net;
 using System.Net.Http.Headers;
 
@@ -96,10 +97,23 @@ builder.Services.AddCors(options =>
 //Validation of my requests dtos.
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
+// i am using the serilog logger with daily interval
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .WriteTo.Console()
+    .WriteTo.File(
+        path: builder.Configuration["Logging:File:LogFilePath"]!,
+        rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 var app = builder.Build();
 
 app.UseCors("DefaultCorsForTheICMarketsAssignment");
+
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
