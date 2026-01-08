@@ -1,0 +1,6 @@
+@ICMarketsAssignment_HostAddress = http://localhost:5052
+
+GET {{ICMarketsAssignment_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
