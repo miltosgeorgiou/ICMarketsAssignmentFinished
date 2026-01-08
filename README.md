@@ -96,3 +96,6 @@ GET https://localhost:7299/api/symbols/health
 - Allows any origin
 - Allows any header
 - Allows any method
+
+- ### LOGGING
+I have used Serilog for logging and there is a folder in the project called Logs where log files are stored there with day interval.
