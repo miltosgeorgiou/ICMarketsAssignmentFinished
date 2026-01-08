@@ -137,11 +137,11 @@ namespace ICMarketsAssignment.Services.impl
         {
             _logger.LogInformation("In GetHistoryAsync");
 
-            var NumberOfRecordsToShow = (limit is null || limit <= 0) ? 9999999 : limit.Value;
+            var NumberOfRecordsToShow = (limit is null) ? 9999999 : limit.Value;
 
             var rows = await _symbolRepository.GetHistoryAsync(SymbolName, NumberOfRecordsToShow, ct);
 
-            // parse JSON AFTER fetching from DB (in-memory)
+            // parse to JSON AFTER fetching from DB
             var result = rows.Select(x => new
             {
                 x.RecordId,
